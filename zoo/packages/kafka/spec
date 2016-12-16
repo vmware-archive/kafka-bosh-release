@@ -4,4 +4,4 @@ name: kafka
 dependencies: []
 
 files:
-  - kafka/kafka_2.11-0.10.1.0.tgz
+  - kafka/kafka_2.10-0.10.1.0.tgz

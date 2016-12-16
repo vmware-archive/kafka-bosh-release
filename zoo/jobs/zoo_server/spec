@@ -3,7 +3,7 @@ name: zoo_server
 
 templates:
   bin/zookeeper_ctl.erb: bin/zookeeper_ctl
-  bin/zookeeper_server-start.erb: bin/zookeeper_server-start
+  bin/zookeeper_server_start.erb: bin/zookeeper_server_start
   config/log4j.properties.erb: config/log4j.properties
   config/zookeeper.properties.erb: config/zookeeper.properties
 

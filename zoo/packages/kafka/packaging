@@ -1,4 +1,4 @@
 # abort script on any command that exits with a non zero value
 set -e -x
 
-tar -C ${BOSH_INSTALL_TARGET} -zxvf kafka/kafka_2.11-0.10.1.0.tgz
+tar -C ${BOSH_INSTALL_TARGET} -zxvf kafka/kafka_2.10-0.10.1.0.tgz

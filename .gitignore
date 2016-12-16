@@ -1,0 +1,6 @@
+.idea
+*.iml
+zoo/.dev_builds/
+zoo/blobs
+dev_releases
+.blobs

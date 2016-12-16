@@ -1,0 +1,38 @@
+#!/bin/bash
+set -e -x
+
+export JAVA_HOME=/var/vcap/packages/jre/jre1.8.0_73
+export PATH=$JAVA_HOME/bin:$PATH
+
+export PIDFILE=/var/vcap/sys/run/zookeeper_server/zookeeper_server.pid
+
+source /var/vcap/packages/common/utils.sh
+
+case $1 in
+
+  start)
+    mkdir -p /var/vcap/store/zookeeper_server
+    mkdir -p /var/vcap/sys/log/zookeeper_server
+    mkdir -p /var/vcap/sys/run/zookeeper_server
+    chown -H vcap:vcap /var/vcap/store/zookeeper_server
+    chown -H vcap:vcap /var/vcap/sys/log/zookeeper_server
+    chown -H vcap:vcap /var/vcap/sys/run/zookeeper_server
+
+    echo <%= index %> > /var/vcap/store/zookeeper_server/myid
+    chown vcap:vcap /var/vcap/store/zookeeper_server/myid
+
+    exec chpst -u vcap:vcap /var/vcap/jobs/zookeeper_server/bin/zookeeper-server-start \
+      /var/vcap/jobs/zookeeper_server/config/zookeeper.properties \
+      1>> /var/vcap/sys/log/zookeeper_server/zookeeper_server_ctl.stdout.log \
+      2>> /var/vcap/sys/log/zookeeper_server/zookeeper_server_ctl.stderr.log &
+    ;;
+
+  stop)
+    kill_and_wait $PIDFILE
+    ;;
+  *)
+    echo "Usage: $0 {start|stop}"
+    ;;
+
+esac
+exit 0

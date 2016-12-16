@@ -1,0 +1,38 @@
+name: kafka
+
+director_uuid: 510ac165-ee99-4c45-8274-1b989e5d5697
+
+releases:
+  - name: zookeeper_release
+    version: latest
+
+stemcells:
+  - alias: trusty
+    os: ubuntu-trusty
+    version: latest
+
+jobs:
+  - name: zoo_server
+    instances: 1
+    templates:
+      - name: zookeeper_server
+        release: zookeeper_release
+        provides:
+          zookeeper: {as: zookeeper}
+        consumes:
+          zookeeper: {as: zookeeper}
+    vm_type: medium
+    stemcell: trusty
+    networks:
+      - name: *network_name
+
+properties:
+  network: *network_name
+  auto_create_topics: true
+  default_replication_factor: 3
+
+update:
+  canaries: 1
+  max_in_flight: 10
+  canary_watch_time: 1000-30000
+  update_watch_time: 1000-30000

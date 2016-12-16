@@ -1,0 +1,6 @@
+---
+blobstore:
+  provider: local
+  options:
+    blobstore_path: /Users/miyer/Github/kafka-release/tmp/blobs
+final_name: kafka_release

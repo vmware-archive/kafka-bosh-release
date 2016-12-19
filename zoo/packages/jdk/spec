@@ -1,7 +1,0 @@
----
-name: jdk
-
-dependencies: []
-
-files:
-  - jdk/openjdk-1.8.0_91.tar.gz

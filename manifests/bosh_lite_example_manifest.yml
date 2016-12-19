@@ -1,8 +1,8 @@
-name: kafka_release
+name: zookeeper_release
 director_uuid: fb70f16a-4d6f-41f8-bc2e-0181a03dff18
 
 releases:
-  - {name: kafka_release, version: latest}
+  - {name: zookeeper_release, version: latest}
 
 stemcells:
   - alias: default
@@ -14,8 +14,8 @@ instance_groups:
     instances: 1
     azs: [z1]
     jobs:
-    - name: zoo_server
-      release: kafka_release
+    - name: zookeeper_server
+      release: zookeeper_release
       provides:
         zookeeper: {as: zookeeper}
       consumes:

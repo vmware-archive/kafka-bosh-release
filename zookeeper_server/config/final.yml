@@ -3,4 +3,4 @@ blobstore:
   provider: local
   options:
     blobstore_path: /tmp/blobs
-final_name: kafka_release
+final_name: zookeeper_release

@@ -1,6 +1,8 @@
 .idea
 *.iml
-zoo/.dev_builds/
-zoo/blobs
+.dev_builds/
+.final_builds/
+blobs/
 dev_releases
 .blobs
+dev.yml

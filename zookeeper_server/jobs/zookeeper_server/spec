@@ -1,0 +1,22 @@
+---
+name: zookeeper_server
+
+templates:
+  bin/zookeeper_ctl.erb: bin/zookeeper_ctl
+  config/log4j.properties.erb: config/log4j.properties
+  config/zookeeper.properties.erb: config/zookeeper.properties
+
+packages:
+-  kafka
+-  jdk
+-  common
+
+provides:
+- name: zookeeper
+  type: zookeeper
+
+consumes:
+- name: zookeeper
+  type: zookeeper
+
+properties: {}

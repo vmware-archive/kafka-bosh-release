@@ -4,9 +4,8 @@ set -e -x
 export JAVA_HOME=/var/vcap/packages/jdk
 export PATH=$JAVA_HOME/bin:$PATH
 
-export PIDFILE=/var/vcap/sys/run/zookeeper_server/zookeeper_server.pid
-
-source /var/vcap/packages/common/utils.sh
+export KAFKA_LOG4J_OPTS="-Dlog4j.configuration=file:/var/vcap/jobs/zookeeper_server/config/log4j.properties"
+export JAVA_OPTS='-Xloggc:/var/vcap/sys/log/zookeeper_server/zookeeper-gc.log -Dlog4j.configuration=file:/var/vcap/jobs/zookeeper_server/config/log4j.properties'
 
 case $1 in
 
@@ -28,7 +27,7 @@ case $1 in
     ;;
 
   stop)
-    kill_and_wait $PIDFILE
+    exec chpst -u vcap:vcap /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/bin/zookeeper-server-stop.sh
     ;;
   *)
     echo "Usage: $0 {start|stop}"

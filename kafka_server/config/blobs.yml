@@ -1,0 +1,9 @@
+---
+jdk/openjdk-1.8.0_91.tar.gz:
+  object_id: 0048671e-e9f4-4ec8-a7da-c7c27a60ffbe
+  sha: 63ff487f3004729d33796e87919c183fa8a4e752
+  size: 45736783
+kafka/kafka_2.11-0.10.1.0.tgz:
+  object_id: d9cbb5fc-693a-4370-9997-23e971c858d0
+  sha: 710f31e70ab754bfd5333278e22682c98dd056ca
+  size: 34373824

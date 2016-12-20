@@ -29,4 +29,3 @@ compilation:
   network: default
   reuse_compilation_vms: true
   az: z1
-  

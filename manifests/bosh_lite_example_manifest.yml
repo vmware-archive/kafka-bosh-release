@@ -1,9 +1,9 @@
-name: zookeeper_release
-director_uuid: fb70f16a-4d6f-41f8-bc2e-0181a03dff18
+name: kafka
+director_uuid: 510ac165-ee99-4c45-8274-1b989e5d5697
 
 releases:
   - {name: zookeeper_release, version: latest}
-
+  - {name: kafka_release, version: latest}
 stemcells:
   - alias: default
     os: ubuntu-trusty
@@ -20,6 +20,22 @@ instance_groups:
         zookeeper: {as: zookeeper}
       consumes:
         zookeeper: {from: zookeeper}
+    vm_type: default
+    stemcell: default
+    persistent_disk_type: default
+    networks:
+      - name: default
+  - name: kafka_node
+    instances: 1
+    azs: [z1]
+    jobs:
+    - name: kafka_server
+      release: kafka_release
+      provides:
+        kafka: {as: kafka}
+      consumes:
+        zookeeper: {from: zookeeper}
+        kafka: {from: kafka}
       properties:
         auto_create_topics: true
         default_replication_factor: 1

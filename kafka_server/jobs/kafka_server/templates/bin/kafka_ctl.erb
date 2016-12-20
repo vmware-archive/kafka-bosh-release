@@ -1,0 +1,34 @@
+#!/bin/bash
+set -e -x
+
+export JAVA_HOME=/var/vcap/packages/jdk
+export PATH=$JAVA_HOME/bin:$PATH
+
+export CONSOLE_OUTPUT_FILE=$LOG_DIR/kafka_server.log
+
+case $1 in
+
+  start)
+
+    mkdir -p /var/vcap/store/kafka_server
+    mkdir -p /var/vcap/sys/log/kafka_server
+    mkdir -p /var/vcap/sys/run/kafka_server
+    chown -H vcap:vcap /var/vcap/store/kafka_server
+    chown -H vcap:vcap /var/vcap/sys/log/kafka_server
+    chown -H vcap:vcap /var/vcap/sys/run/kafka_server
+
+    exec chpst -u vcap:vcap /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/bin/kafka-server-start.sh \
+      /var/vcap/jobs/kafka_server/config/server.properties \
+      1>> /var/vcap/sys/log/kafka_server/kafka_ctl.stdout.log \
+      2>> /var/vcap/sys/log/kafka_server/kafka_ctl.stderr.log &
+    ;;
+
+  stop)
+    exec chpst -u vcap:vcap /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/bin/kafka-server-stop.sh
+    ;;
+  *)
+    echo "Usage: $0 {start|stop}"
+    ;;
+
+esac
+exit 0

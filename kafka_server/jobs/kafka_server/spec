@@ -1,0 +1,26 @@
+---
+name: kafka_server
+
+templates:
+  bin/kafka_ctl.erb: bin/kafka_ctl
+  config/log4j.properties.erb: config/log4j.properties
+  config/server.properties.erb: config/server.properties
+
+packages:
+-  kafka
+-  jdk
+
+provides:
+- name: kafka
+  type: kafka
+
+consumes:
+- name: kafka
+  type: kafka
+- name: zookeeper
+  type: zookeeper
+
+properties:
+  network:
+    description: "Kafka network"
+    default: default

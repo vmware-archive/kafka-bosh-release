@@ -1,6 +1,7 @@
 <%
  ip_address = spec.networks.send(p('network')).ip
 %>
+
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
 # this work for additional information regarding copyright ownership.
@@ -15,30 +16,33 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
 # see kafka.server.KafkaConfig for additional details and defaults
 
 ############################# Server Basics #############################
 
 # The id of the broker. This must be set to a unique integer for each broker.
-# broker.id=<%= link('kafka').instances.map(&:address).index(ip_address) %>
 broker.id=0
+
+# Switch to enable topic deletion or not, default value is false
+delete.topic.enable=true
 
 ############################# Socket Server Settings #############################
 
-# The port the socket server listens on
-port=9092
+# The address the socket server listens on. It will get the value returned from
+# java.net.InetAddress.getCanonicalHostName() if not configured.
+#   FORMAT:
+#     listeners = security_protocol://host_name:port
+#   EXAMPLE:
+#     listeners = PLAINTEXT://your.host.name:9092
+listeners=PLAINTEXT://<%= ip_address %>:9092
 
-# Hostname the broker will bind to. If not set, the server will bind to all interfaces
-#host.name=localhost
+# Hostname and port the broker will advertise to producers and consumers. If not set,
+# it uses the value for "listeners" if configured.  Otherwise, it will use the value
+# returned from java.net.InetAddress.getCanonicalHostName().
 
-# Hostname the broker will advertise to producers and consumers. If not set, it uses the
-# value for "host.name" if configured.  Otherwise, it will use the value returned from
-# java.net.InetAddress.getCanonicalHostName().
-advertised.host.name=<%= ip_address %>
-
-# The port to publish to ZooKeeper for clients to use. If this is not set,
-# it will publish the same port that the broker binds to.
-#advertised.port=<port accessible by clients>
+# need to add the public ip address here!
+advertised.listeners=PLAINTEXT://<%= ip_address %>:9092
 
 # The number of threads handling network requests
 num.network.threads=3
@@ -59,7 +63,7 @@ socket.request.max.bytes=104857600
 ############################# Log Basics #############################
 
 # A comma seperated list of directories under which to store log files
-log.dirs=/var/vcap/store/kafka_server/kafka-logs
+log.dirs=/var/vcap/sys/log/kafka-server
 
 # The default number of log partitions per topic. More partitions allow greater
 # parallelism for consumption, but this will also result in more files across
@@ -108,10 +112,6 @@ log.segment.bytes=1073741824
 # to the retention policies
 log.retention.check.interval.ms=300000
 
-# By default the log cleaner is disabled and the log retention policy will default to just delete segments after their retention expires.
-# If log.cleaner.enable=true is set the cleaner will be enabled and individual logs can then be marked for log compaction.
-log.cleaner.enable=false
-
 ############################# Zookeeper #############################
 
 # Zookeeper connection string (see zookeeper docs for details).
@@ -123,10 +123,3 @@ zookeeper.connect=<%= link('zookeeper').instances.map {|e| e.address + ':2181'}.
 
 # Timeout in ms for connecting to zookeeper
 zookeeper.connection.timeout.ms=6000
-
-# Enable topic deletion
-delete.topic.enable=true
-
-auto.create.topics.enable=true
-
-default.replication.factor=1

@@ -3,8 +3,9 @@ set -e -x
 
 export JAVA_HOME=/var/vcap/packages/jdk
 export PATH=$JAVA_HOME/bin:$PATH
+export KAFKA_LOG4J_OPTS="-Dlog4j.configuration=file:/var/vcap/jobs/kafka_server/config/log4j.properties"
 
-export CONSOLE_OUTPUT_FILE=$LOG_DIR/kafka_server.log
+#export CONSOLE_OUTPUT_FILE=$LOG_DIR/kafka_server.log
 
 case $1 in
 

@@ -4,8 +4,7 @@ set -e -x
 export JAVA_HOME=/var/vcap/packages/jdk
 export PATH=$JAVA_HOME/bin:$PATH
 
-export KAFKA_LOG4J_OPTS="-Dlog4j.configuration=file:/var/vcap/jobs/zookeeper_server/config/log4j.properties"
-export JAVA_OPTS='-Xloggc:/var/vcap/sys/log/zookeeper_server/zookeeper-gc.log -Dlog4j.configuration=file:/var/vcap/jobs/zookeeper_server/config/log4j.properties'
+export ZOO_LOG_DIR=/var/vcap/sys/logs/zookeeper_server
 
 case $1 in
 

@@ -35,14 +35,14 @@ delete.topic.enable=true
 #     listeners = security_protocol://host_name:port
 #   EXAMPLE:
 #     listeners = PLAINTEXT://your.host.name:9092
-listeners=PLAINTEXT://<%= ip_address %>:9092
+listeners=PLAINTEXT://localhost:9092
 
 # Hostname and port the broker will advertise to producers and consumers. If not set,
 # it uses the value for "listeners" if configured.  Otherwise, it will use the value
 # returned from java.net.InetAddress.getCanonicalHostName().
 
 # need to add the public ip address here!
-advertised.listeners=PLAINTEXT://<%= ip_address %>:9092
+advertised.listeners=PLAINTEXT://<%=ip_address%>:9092
 
 # The number of threads handling network requests
 num.network.threads=3
@@ -113,13 +113,13 @@ log.segment.bytes=1073741824
 log.retention.check.interval.ms=300000
 
 ############################# Zookeeper #############################
-
+d .
 # Zookeeper connection string (see zookeeper docs for details).
 # This is a comma separated host:port pairs, each corresponding to a zk
 # server. e.g. "127.0.0.1:3000,127.0.0.1:3001,127.0.0.1:3002".
 # You can also append an optional chroot string to the urls to specify the
 # root directory for all kafka znodes.
-zookeeper.connect=<%= link('zookeeper').instances.map {|e| e.address + ':2181'}.join(',') %>
+zookeeper.connect=<%= link("zoo_node").zookeeper %> #10.244.0.2:2181
 
 # Timeout in ms for connecting to zookeeper
 zookeeper.connection.timeout.ms=6000

@@ -1,5 +1,5 @@
 name: kafka
-director_uuid: 510ac165-ee99-4c45-8274-1b989e5d5697
+director_uuid: fb70f16a-4d6f-41f8-bc2e-0181a03dff18
 
 releases:
   - {name: zookeeper_release, version: latest}
@@ -25,6 +25,7 @@ instance_groups:
     persistent_disk_type: default
     networks:
       - name: default
+        static_ips: [10.244.0.2]
   - name: kafka_node
     instances: 1
     azs: [z1]
@@ -44,6 +45,7 @@ instance_groups:
     persistent_disk_type: default
     networks:
       - name: default
+        static_ips: [10.244.0.3]
 
 update:
   canaries: 1

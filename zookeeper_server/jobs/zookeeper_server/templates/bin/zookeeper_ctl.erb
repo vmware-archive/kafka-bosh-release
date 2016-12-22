@@ -3,7 +3,6 @@ set -e -x
 
 export JAVA_HOME=/var/vcap/packages/jdk
 export PATH=$JAVA_HOME/bin:$PATH
-
 export ZOO_LOG_DIR=/var/vcap/sys/logs/zookeeper_server
 
 case $1 in
@@ -15,14 +14,16 @@ case $1 in
     chown -H vcap:vcap /var/vcap/store/zookeeper_server
     chown -H vcap:vcap /var/vcap/sys/log/zookeeper_server
     chown -H vcap:vcap /var/vcap/sys/run/zookeeper_server
+    chown -H -R vcap:vcap /var/vcap/packages/kafka
+
+    cp /var/vcap/jobs/zookeeper_server/config/log4j.properties /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/config
+    cp /var/vcap/jobs/zookeeper_server/config/zookeeper.properties /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/config
 
     echo <%= index %> > /var/vcap/store/zookeeper_server/myid
     chown vcap:vcap /var/vcap/store/zookeeper_server/myid
 
     exec chpst -u vcap:vcap /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/bin/zookeeper-server-start.sh \
-      /var/vcap/jobs/zookeeper_server/config/zookeeper.properties \
-      1>> /var/vcap/sys/log/zookeeper_server/zookeeper_ctl.stdout.log \
-      2>> /var/vcap/sys/log/zookeeper_server/zookeeper_ctl.stderr.log &
+      /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/config/zookeeper.properties
     ;;
 
   stop)

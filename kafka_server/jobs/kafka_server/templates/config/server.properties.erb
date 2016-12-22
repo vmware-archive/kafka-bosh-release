@@ -119,7 +119,7 @@ d .
 # server. e.g. "127.0.0.1:3000,127.0.0.1:3001,127.0.0.1:3002".
 # You can also append an optional chroot string to the urls to specify the
 # root directory for all kafka znodes.
-zookeeper.connect=<%= link("zoo_node").zookeeper %> #10.244.0.2:2181
+zookeeper.connect=<%= link('zookeeper').instances.map{|n| "#{n.address}:2181"}.join(',')%>
 
 # Timeout in ms for connecting to zookeeper
 zookeeper.connection.timeout.ms=6000

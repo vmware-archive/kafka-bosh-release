@@ -45,7 +45,6 @@ instance_groups:
     persistent_disk_type: default
     networks:
       - name: default
-        static_ips: [10.244.0.3]
 
 update:
   canaries: 1

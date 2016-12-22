@@ -23,7 +23,7 @@ case $1 in
     chown vcap:vcap /var/vcap/store/zookeeper_server/myid
 
     exec chpst -u vcap:vcap /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/bin/zookeeper-server-start.sh \
-      /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/config/zookeeper.properties
+      /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/config/zookeeper.properties &
     ;;
 
   stop)

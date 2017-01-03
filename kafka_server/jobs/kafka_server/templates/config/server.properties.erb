@@ -1,3 +1,7 @@
+<%
+ ip_address = spec.networks.send(p('network')).ip
+%>
+
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
 # this work for additional information regarding copyright ownership.
@@ -31,14 +35,14 @@ delete.topic.enable=true
 #     listeners = security_protocol://host_name:port
 #   EXAMPLE:
 #     listeners = PLAINTEXT://your.host.name:9092
-listeners=PLAINTEXT://<%=link('kafka').instances.map{|n| "#{n.address}:9092"}.join(',')%>
+listeners=PLAINTEXT://<%= ip_address %>:9092
 
 # Hostname and port the broker will advertise to producers and consumers. If not set,
 # it uses the value for "listeners" if configured.  Otherwise, it will use the value
 # returned from java.net.InetAddress.getCanonicalHostName().
 
 # need to add the public ip address here!
-advertised.listeners=PLAINTEXT://<%=link('kafka').instances.map{|n| "#{n.address}:9092"}.join(',')%>
+advertised.listeners=PLAINTEXT://<%= ip_address %>:9092
 
 # The number of threads handling network requests
 num.network.threads=3

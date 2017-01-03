@@ -4,6 +4,8 @@ set -e -x
 export JAVA_HOME=/var/vcap/packages/jdk
 export PATH=$JAVA_HOME/bin:$PATH
 
+export PIDFILE=/var/vcap/sys/run/kafka_server/kafka_server.pid
+
 #export CONSOLE_OUTPUT_FILE=$LOG_DIR/kafka_server.log
 
 case $1 in
@@ -19,9 +21,11 @@ case $1 in
     chown -H -R vcap:vcap /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/
     chown -H -R vcap:vcap /var/vcap/packages/kafka
 
+
+
     cp /var/vcap/jobs/kafka_server/config/log4j.properties /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/config
     cp /var/vcap/jobs/kafka_server/config/server.properties /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/config
-
+    echo $$ > /var/vcap/sys/run/kafka_server/kafka_server.pid
     exec chpst -u vcap:vcap /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/bin/kafka-server-start.sh \
       /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/config/server.properties &
     ;;
@@ -34,4 +38,5 @@ case $1 in
     ;;
 
 esac
+
 exit 0

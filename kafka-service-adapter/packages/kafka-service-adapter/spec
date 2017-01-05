@@ -1,0 +1,7 @@
+---
+name: kafka-service-adapter
+
+dependencies:
+
+files:
+  - kafka-service-adapter/kafka-service-adapter-jar-with-dependencies.jar

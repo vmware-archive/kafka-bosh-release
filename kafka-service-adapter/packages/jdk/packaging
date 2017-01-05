@@ -1,0 +1,4 @@
+# abort script on any command that exits with a non zero value
+set -e
+
+tar -C ${BOSH_INSTALL_TARGET} -zxvf jdk/openjdk-1.8.0_91.tar.gz

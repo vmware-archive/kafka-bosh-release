@@ -1,0 +1,8 @@
+---
+name: kafka_service_adapter
+
+templates:
+
+packages:
+-  kafka-service-adapter
+-  jdk

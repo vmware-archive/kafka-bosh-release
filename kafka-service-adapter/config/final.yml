@@ -1,6 +1,0 @@
----
-blobstore:
-  provider: local
-  options:
-    blobstore_path: /tmp/blobs
-final_name: kafka_service_adapter_release

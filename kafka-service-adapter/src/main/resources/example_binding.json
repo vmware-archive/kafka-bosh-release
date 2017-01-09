@@ -1,8 +1,0 @@
-{
-  "credentials": {
-    "username": "user1",
-    "password": "reallysecret"
-  },
-  "syslog_drain_url": "optional: for syslog drain services only",
-  "route_service_url": "optional: for route services only"
-}

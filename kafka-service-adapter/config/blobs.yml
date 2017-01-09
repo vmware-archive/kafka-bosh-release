@@ -1,9 +1,0 @@
----
-jdk/openjdk-1.8.0_91.tar.gz:
-  object_id: 3d981c94-cc12-45a8-8631-9a4cb6cf942a
-  sha: 63ff487f3004729d33796e87919c183fa8a4e752
-  size: 45736783
-kafka-service-adapter/kafka-service-adapter-jar-with-dependencies.jar:
-  object_id: 919b36e1-2cf1-43e0-a8c7-7c5584c4807f
-  sha: 7fa7ad5abdb051ed4cdb736e7cfa371045ce68e3
-  size: 34478808

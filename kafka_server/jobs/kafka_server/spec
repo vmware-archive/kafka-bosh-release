@@ -23,4 +23,4 @@ consumes:
 properties:
   network:
     description: "Kafka network"
-    default: default
+    default: services-1

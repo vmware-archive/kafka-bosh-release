@@ -1,5 +1,4 @@
-
 check process kafka_server
-  matching "kafka.Kafka"
-  start program "/var/vcap/jobs/kafka_server/bin/kafka_ctl start"
-  stop program "/var/vcap/jobs/kafka_server/bin/kafka_ctl stop" with timeout 30 seconds
+  with pidfile /var/vcap/sys/run/kafka_server/kafka_server.pid
+  start program "/var/vcap/jobs/kafka_server/bin/kafka_ctl start" with timeout 30 seconds
+  stop program "/var/vcap/jobs/kafka_server/bin/kafka_ctl stop"

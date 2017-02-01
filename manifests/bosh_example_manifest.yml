@@ -27,7 +27,7 @@ instance_groups:
     stemcell: default
     persistent_disk_type: '307200'
     networks:
-      - name: service-1
+      - name: services-1
   - name: kafka_node
     instances: 2
     azs: [us-central1-a]
@@ -49,7 +49,7 @@ instance_groups:
     stemcell: default
     persistent_disk_type: '307200'
     networks:
-      - name: service-1
+      - name: services-1
 
 update:
   canaries: 1

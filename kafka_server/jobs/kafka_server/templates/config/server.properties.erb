@@ -2,6 +2,7 @@
  ip_address = spec.networks.send(p('network')).ip
 %>
 
+
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
 # this work for additional information regarding copyright ownership.
@@ -22,7 +23,7 @@
 ############################# Server Basics #############################
 
 # The id of the broker. This must be set to a unique integer for each broker.
-broker.id=0
+broker.id=<%= index %>
 
 # Switch to enable topic deletion or not, default value is false
 delete.topic.enable=true
@@ -35,7 +36,7 @@ delete.topic.enable=true
 #     listeners = security_protocol://host_name:port
 #   EXAMPLE:
 #     listeners = PLAINTEXT://your.host.name:9092
-listeners=PLAINTEXT://<%= ip_address %>:9092
+listeners=PLAINTEXT://localhost:9092
 
 # Hostname and port the broker will advertise to producers and consumers. If not set,
 # it uses the value for "listeners" if configured.  Otherwise, it will use the value
@@ -43,7 +44,6 @@ listeners=PLAINTEXT://<%= ip_address %>:9092
 
 # need to add the public ip address here!
 advertised.listeners=PLAINTEXT://<%= ip_address %>:9092
-
 # The number of threads handling network requests
 num.network.threads=3
 
@@ -62,7 +62,7 @@ socket.request.max.bytes=104857600
 
 ############################# Log Basics #############################
 
-# A comma seperated list of directories under which to store log files
+# A comma separated list of directories under which to store log files
 log.dirs=/var/vcap/store/kafka_server
 
 # The default number of log partitions per topic. More partitions allow greater

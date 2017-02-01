@@ -5,6 +5,10 @@ export JAVA_HOME=/var/vcap/packages/jdk
 export PATH=$JAVA_HOME/bin:$PATH
 export ZOO_LOG_DIR=/var/vcap/sys/logs/zookeeper_server
 
+export PIDFILE=/var/vcap/sys/run/zookeeper_server/zookeeper_server.pid
+
+source /var/vcap/packages/common/utils.sh
+
 case $1 in
 
   start)
@@ -19,15 +23,15 @@ case $1 in
     cp /var/vcap/jobs/zookeeper_server/config/log4j.properties /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/config
     cp /var/vcap/jobs/zookeeper_server/config/zookeeper.properties /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/config
 
-    echo <%= index %> > /var/vcap/store/zookeeper_server/myid
-    chown vcap:vcap /var/vcap/store/zookeeper_server/myid
-
     exec chpst -u vcap:vcap /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/bin/zookeeper-server-start.sh \
       /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/config/zookeeper.properties &
+
+    echo $!  > ${PIDFILE}
+
     ;;
 
   stop)
-    exec chpst -u vcap:vcap /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/bin/zookeeper-server-stop.sh
+    kill_and_wait ${PIDFILE}
     ;;
   *)
     echo "Usage: $0 {start|stop}"

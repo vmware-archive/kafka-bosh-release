@@ -4,6 +4,10 @@ set -e -x
 export JAVA_HOME=/var/vcap/packages/jdk
 export PATH=$JAVA_HOME/bin:$PATH
 
+export PIDFILE=/var/vcap/sys/run/kafka_server/kafka_server.pid
+
+source /var/vcap/packages/common/utils.sh
+
 case $1 in
 
   start)
@@ -22,10 +26,12 @@ case $1 in
 
     exec chpst -u vcap:vcap /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/bin/kafka-server-start.sh \
       /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/config/server.properties &
+
+    echo $! > ${PIDFILE}
     ;;
 
   stop)
-    exec chpst -u vcap:vcap /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/bin/kafka-server-stop.sh
+    kill_and_wait ${PIDFILE}
     ;;
   *)
     echo "Usage: $0 {start|stop}"

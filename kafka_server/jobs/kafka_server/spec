@@ -9,6 +9,7 @@ templates:
 packages:
 -  kafka
 -  jdk
+-  common
 
 provides:
 - name: kafka

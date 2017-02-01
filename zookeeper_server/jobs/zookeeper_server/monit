@@ -1,10 +1,9 @@
 check process zookeeper_server
-  matching "zookeeper"
+  with pidfile /var/vcap/sys/run/zookeeper_server/zookeeper_server.pid
   start program "/var/vcap/jobs/zookeeper_server/bin/zookeeper_ctl start" with timeout 30 seconds
   stop program "/var/vcap/jobs/zookeeper_server/bin/zookeeper_ctl stop"
-  group vcap
   if failed
-    port 2181 and
-    send   "ruok\n"
-    expect "imok"
-  then alert
+      port 2181 and
+      send   "ruok\n"
+      expect "imok"
+    then alert

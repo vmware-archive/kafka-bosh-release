@@ -9,6 +9,8 @@ export PIDFILE=/var/vcap/sys/run/zookeeper_server/zookeeper_server.pid
 
 source /var/vcap/packages/common/utils.sh
 
+
+
 case $1 in
 
   start)
@@ -22,6 +24,9 @@ case $1 in
 
     cp /var/vcap/jobs/zookeeper_server/config/log4j.properties /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/config
     cp /var/vcap/jobs/zookeeper_server/config/zookeeper.properties /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/config
+
+    echo <%= index + 1 %> > /var/vcap/store/zookeeper_server/myid
+    chown -H vcap:vcap /var/vcap/store/zookeeper_server/myid
 
     exec chpst -u vcap:vcap /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/bin/zookeeper-server-start.sh \
       /var/vcap/packages/kafka/kafka_2.11-0.10.1.0/config/zookeeper.properties &

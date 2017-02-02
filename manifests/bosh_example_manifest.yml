@@ -11,7 +11,7 @@ stemcells:
 
 instance_groups:
   - name: zoo_node
-    instances: 2
+    instances: 3
     azs: [us-central1-a]
     jobs:
     - name: zookeeper_server

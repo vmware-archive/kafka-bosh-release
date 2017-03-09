@@ -4,7 +4,6 @@ clientPort=2181
 initLimit=5
 syncLimit=2
 
-<% link('zookeeper').instances.map(&:address).each_with_index do |zookeeper_server_ip, index| %>
-server.<%= index + 1 %>=<%= zookeeper_server_ip %>:2888:3888
+<% link('zookeeper').instances.each do |instance| %>
+  server.<%= instance.index + 1 %>=<%= instance.address %>:2888:3888
 <% end %>
-

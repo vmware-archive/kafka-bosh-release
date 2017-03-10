@@ -4,6 +4,13 @@ clientPort=2181
 initLimit=5
 syncLimit=2
 
-<% link('zookeeper').instances.each do |instance| %>
-  server.<%= instance.index + 1 %>=<%= instance.address %>:2888:3888
-<% end %>
+<%
+ip_address = spec.networks.default.ip
+link('zookeeper').instances.each do |instance|
+  if instance.address == ip_address then %>
+server.<%= instance.index + 1 %>=0.0.0.0:2888:3888
+  <% else %>
+server.<%= instance.index + 1 %>=<%= instance.address %>:2888:3888
+<% end
+end
+%>

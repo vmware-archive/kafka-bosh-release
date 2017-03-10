@@ -19,4 +19,7 @@ consumes:
 - name: zookeeper
   type: zookeeper
 
-properties: {}
+properties:
+  network:
+    description: "Kafka network"
+    default: services-1

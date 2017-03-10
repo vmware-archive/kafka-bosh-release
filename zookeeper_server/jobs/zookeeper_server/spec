@@ -22,4 +22,4 @@ consumes:
 properties:
   network:
     description: "Kafka network"
-    default: services-1
+    default: ert

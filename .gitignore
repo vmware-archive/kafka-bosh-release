@@ -4,6 +4,7 @@
 .final_builds/
 blobs/
 dev_releases
+releases
 .blobs
 dev.yml
 target/
